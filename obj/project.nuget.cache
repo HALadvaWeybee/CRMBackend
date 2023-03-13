@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "FVpNIAoQWoffnouQBIXBfR5pkjEcorQuhopK4/w75/FddlYq5A6g2Jb1sn/CTTrliJsj9fui665grZgpVY/XCw==",
+  "dgSpecHash": "kjDk2CH8iheeDd6RLUZEzHcqLN0YqCGfIQnogwypcBlIL7frjkhn1pGWV9LFWfq5IuI7ng5v0Bie0Q1QVx7sWA==",
   "success": true,
-  "projectFilePath": "C:\\CRM\\CRMBackend.csproj",
+  "projectFilePath": "C:\\CRM\\CRMBackend\\CRMBackend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\DELL\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\DELL\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.14\\microsoft.aspnetcore.authentication.jwtbearer.6.0.14.nupkg.sha512",

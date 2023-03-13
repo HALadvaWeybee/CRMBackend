@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\CRM\\CRMBackend.csproj": {}
+    "C:\\CRM\\CRMBackend\\CRMBackend.csproj": {}
   },
   "projects": {
-    "C:\\CRM\\CRMBackend.csproj": {
+    "C:\\CRM\\CRMBackend\\CRMBackend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\CRM\\CRMBackend.csproj",
+        "projectUniqueName": "C:\\CRM\\CRMBackend\\CRMBackend.csproj",
         "projectName": "CRMBackend",
-        "projectPath": "C:\\CRM\\CRMBackend.csproj",
+        "projectPath": "C:\\CRM\\CRMBackend\\CRMBackend.csproj",
         "packagesPath": "C:\\Users\\DELL\\.nuget\\packages\\",
-        "outputPath": "C:\\CRM\\obj\\",
+        "outputPath": "C:\\CRM\\CRMBackend\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
