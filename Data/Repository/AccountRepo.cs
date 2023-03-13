@@ -16,11 +16,11 @@ namespace CRMBackend.Data.Repository
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IConfiguration _configuration;
-        private readonly CRMbackendContext _context;
+        private readonly RMbackendContext _context;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly JwtBearerTokenSettings _jwtBearerTokenSettings;
 
-        public AccountRepo(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IConfiguration configuration, IOptions<JwtBearerTokenSettings> jwtTokenOptions, CRMbackendContext context, RoleManager<IdentityRole> roleManager)
+        public AccountRepo(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, IConfiguration configuration, IOptions<JwtBearerTokenSettings> jwtTokenOptions, RMbackendContext context, RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -36,7 +36,7 @@ namespace CRMBackend.Data.Repository
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 Email = model.Email,
-                UserName = model.Email!.Split("@")[0],
+                //UserName = model.Email,
             };
             var result = await _userManager.CreateAsync(userData, model.Password);
 
@@ -61,7 +61,7 @@ namespace CRMBackend.Data.Repository
             var authClaims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, model.Email),
-                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
@@ -116,5 +116,23 @@ namespace CRMBackend.Data.Repository
         {
             await _signInManager.SignOutAsync();
         }
+
+        /*public async Task<List<string>> GetAllCountryStateAndCity()
+        {
+            List<string> mixArray = new List<string>();
+            var allCountries = await _context.Countries.ToListAsync();
+            var allStates = await _context.States.ToListAsync();
+            var allCities = await _context.Cities.ToListAsync();
+
+            foreach (var city in allCities)
+            {
+                //string cityName = city.Name;
+                ////List<string> states = new List<string>();
+                //string state = allStates.Where(x => x.Id == city.CountriesId).FirstOrDefault()!.Name;
+                //string country = allCountries.Where(x => x.Id == city.StatesId).FirstOrDefault()!.Name;
+                mixArray.Add(city.Name + "," + city.CountriesId + "," + city.StatesId);
+            }
+            return mixArray;
+        }*/
     }
 }

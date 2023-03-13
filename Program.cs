@@ -12,10 +12,10 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add database connection string
-builder.Services.AddDbContext<CRMbackendContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<RMbackendContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 //Add Identity
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddRoles<IdentityRole>().AddEntityFrameworkStores<CRMbackendContext>().AddDefaultTokenProviders();
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddRoles<IdentityRole>().AddEntityFrameworkStores<RMbackendContext>().AddDefaultTokenProviders();
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -26,6 +26,7 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddTransient<IAccountRepo, AccountRepo>();
+builder.Services.AddTransient<IAdministratorRepo, AdministratorRepo>();
 
 var jwtSection = builder.Configuration.GetSection("JwtBearerTokenSettings");
 builder.Services.Configure<JwtBearerTokenSettings>(jwtSection);

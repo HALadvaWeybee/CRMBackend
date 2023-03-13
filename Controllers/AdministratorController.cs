@@ -1,10 +1,9 @@
-﻿using CRMBackend.Response;
-using Microsoft.AspNetCore.Authorization;
+﻿using CRMBackend.Data.Interface;
+using CRMBackend.Models;
+using CRMBackend.Response;
 using Microsoft.AspNetCore.Mvc;
-using WebsiteCMS.DAL.Data.Interface;
-using WebsiteCMS.DAL.Models;
 
-namespace WebsiteCMS.Controllers
+namespace CRMBackend.Controllers
 {
     [Route("[controller]")]
     [ApiController]
@@ -36,7 +35,7 @@ namespace WebsiteCMS.Controllers
             if (result == null)
             {
                 response.Success = false;
-                response.error.errorMessage = "Username Is Not Availavle In Database";
+                response.error.errorMessage = "Username is not Availavle in Database";
                 return StatusCode(StatusCodes.Status404NotFound, response);
             }
             response.Success = true;

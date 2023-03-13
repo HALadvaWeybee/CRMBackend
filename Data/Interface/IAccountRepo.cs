@@ -10,5 +10,6 @@ namespace CRMBackend.Data.Interface
         Task<UserViewModel> LoginAsync(SignInModel model);
         Task LogOut();
         Task<UserViewModel> MyAccountAsync(Claim claims);
+        //Task<List<string>> GetAllCountryStateAndCity();
     }
 }

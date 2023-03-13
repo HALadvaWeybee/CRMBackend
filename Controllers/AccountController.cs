@@ -73,6 +73,7 @@ namespace CRMBackend.Controllers
             }
             response.Success = true;
             response.Message = "Token Getting Successfully";
+
             response.Data = await _accountRepo.MyAccountAsync(claimsData);
             return StatusCode(StatusCodes.Status200OK, response);
         }
@@ -85,5 +86,12 @@ namespace CRMBackend.Controllers
             response.Message = "Logout Successfully";
             return StatusCode(StatusCodes.Status200OK, response);
         }
+
+        /*[HttpGet("GetAllData")]
+        public async Task<IActionResult> GetAllData()
+        {
+            var result = await _accountRepo.GetAllCountryStateAndCity();
+            return Ok(result);
+        }*/
     }
 }

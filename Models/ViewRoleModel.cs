@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WebsiteCMS.DAL.Models
+namespace CRMBackend.Models
 {
     public class ViewRoleModel
     {

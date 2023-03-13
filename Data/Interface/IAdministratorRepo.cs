@@ -1,7 +1,6 @@
 ﻿using CRMBackend.Models;
-using WebsiteCMS.DAL.Models;
 
-namespace WebsiteCMS.DAL.Data.Interface
+namespace CRMBackend.Data.Interface
 {
     public interface IAdministratorRepo
     {

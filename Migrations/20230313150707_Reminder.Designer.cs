@@ -4,16 +4,18 @@ using CRMBackend.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
 namespace CRMBackend.Migrations
 {
-    [DbContext(typeof(CRMbackendContext))]
-    partial class CRMbackendContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(RMbackendContext))]
+    [Migration("20230313150707_Reminder")]
+    partial class Reminder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +23,118 @@ namespace CRMBackend.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("CRMBackend.Data.Models.City", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CountriesId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("StatesId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CountriesId");
+
+                    b.HasIndex("StatesId");
+
+                    b.ToTable("City");
+                });
+
+            modelBuilder.Entity("CRMBackend.Data.Models.Countries", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Countries");
+                });
+
+            modelBuilder.Entity("CRMBackend.Data.Models.OrganizationORIndividual", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OrganizationORIndividual");
+                });
+
+            modelBuilder.Entity("CRMBackend.Data.Models.Reminder", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<DateTime?>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("OrganizationORIndividualId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrganizationORIndividualId");
+
+                    b.ToTable("Reminders");
+                });
+
+            modelBuilder.Entity("CRMBackend.Data.Models.States", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("CountryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CountryId");
+
+                    b.ToTable("States");
+                });
 
             modelBuilder.Entity("CRMBackend.Models.ApplicationUser", b =>
                 {
@@ -44,6 +158,9 @@ namespace CRMBackend.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
@@ -60,6 +177,9 @@ namespace CRMBackend.Migrations
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
+
+                    b.Property<int>("OrganizationORIndividualId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
@@ -92,6 +212,8 @@ namespace CRMBackend.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.HasIndex("OrganizationORIndividualId");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -229,6 +351,58 @@ namespace CRMBackend.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("CRMBackend.Data.Models.City", b =>
+                {
+                    b.HasOne("CRMBackend.Data.Models.Countries", "Countries")
+                        .WithMany()
+                        .HasForeignKey("CountriesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CRMBackend.Data.Models.States", "States")
+                        .WithMany("Cities")
+                        .HasForeignKey("StatesId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Countries");
+
+                    b.Navigation("States");
+                });
+
+            modelBuilder.Entity("CRMBackend.Data.Models.Reminder", b =>
+                {
+                    b.HasOne("CRMBackend.Data.Models.OrganizationORIndividual", "OrganizationORIndividual")
+                        .WithMany()
+                        .HasForeignKey("OrganizationORIndividualId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("OrganizationORIndividual");
+                });
+
+            modelBuilder.Entity("CRMBackend.Data.Models.States", b =>
+                {
+                    b.HasOne("CRMBackend.Data.Models.Countries", "Country")
+                        .WithMany("States")
+                        .HasForeignKey("CountryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Country");
+                });
+
+            modelBuilder.Entity("CRMBackend.Models.ApplicationUser", b =>
+                {
+                    b.HasOne("CRMBackend.Data.Models.OrganizationORIndividual", "OrganizationORIndividual")
+                        .WithMany()
+                        .HasForeignKey("OrganizationORIndividualId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("OrganizationORIndividual");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -278,6 +452,16 @@ namespace CRMBackend.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("CRMBackend.Data.Models.Countries", b =>
+                {
+                    b.Navigation("States");
+                });
+
+            modelBuilder.Entity("CRMBackend.Data.Models.States", b =>
+                {
+                    b.Navigation("Cities");
                 });
 #pragma warning restore 612, 618
         }

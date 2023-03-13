@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using CRMBackend.Data.Models;
+using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace CRMBackend.Models
 {
@@ -6,9 +8,13 @@ namespace CRMBackend.Models
     {
         public string? FirstName { get; set; }
         public string? LastName { get; set; }
-        public string? UserName { get; set; }
+        //[DataType(DataType.Text)]
+        //public string? UserName { get; set; }
         public string? Email { get; set; }
         public string? Password { get; set; }
         public bool IsActive { get; set; } = true;
+        public int OrganizationORIndividualId { get; set; }
+        public OrganizationORIndividual? OrganizationORIndividual { get; set; }
+
     }
 }

@@ -1,20 +1,17 @@
-﻿using CRMBackend.Data.Models;
+﻿using CRMBackend.Data.Interface;
+using CRMBackend.Data.Models;
 using CRMBackend.Models;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using WebsiteCMS.DAL.Data.Interface;
-using WebsiteCMS.DAL.Models;
 
-namespace WebsiteCMS.DAL.Data.Repositories
+namespace CRMBackend.Data.Repository
 {
     public class AdministratorRepo : IAdministratorRepo
     {
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly CRMbackendContext _dbContext;
+        private readonly RMbackendContext _dbContext;
 
-        public AdministratorRepo(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager, CRMbackendContext dbContext)
+        public AdministratorRepo(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager, RMbackendContext dbContext)
         {
             _roleManager = roleManager;
             _userManager = userManager;
